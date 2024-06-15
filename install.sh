@@ -48,7 +48,7 @@ function check_root() {
 }
 
 function select_theme() {
-    themes=('Vimix' 'Cyberpunk' 'Shodan' 'fallout' 'CyberRe' 'minegrub-theme' 'Quit')
+    themes=('Vimix' 'Cyberpunk' 'Shodan' 'fallout' 'CyberRe' 'CyberSynchro' 'CyberEXS'  'Quit')
 
     PS3=$(echo_prompt '\nChoose The Theme You Want: ')
     select THEME_NAME in "${themes[@]}"; do
@@ -68,8 +68,11 @@ function select_theme() {
             'CyberRe')
                 splash 'Installing CyberRe Theme...'
                 break;;
-            'minegrub-theme')
-                splash 'Installing Minecraft Theme...'
+            'CyberSynchro')
+                splash 'Installing CyberSynchro Theme...'
+                break;;
+            'CyberEXS')
+                splash 'Installing CyberEXS Theme...'
                 break;;
             'Quit')
                 echo_info 'User requested exit...!'
@@ -110,13 +113,13 @@ function config_grub() {
 
     #--------------------------------------------------
 
-    echo_primary 'Setting grub timeout to 60 seconds'
+    echo_primary 'Setting grub timeout to 10 seconds'
     # remove default timeout if any
     echo_info "sed -i '/GRUB_TIMEOUT=/d' /etc/default/grub"
     sed -i '/GRUB_TIMEOUT=/d' /etc/default/grub
 
-    echo_info "echo 'GRUB_TIMEOUT=\"60\"' >> /etc/default/grub"
-    echo 'GRUB_TIMEOUT="60"' >> /etc/default/grub
+    echo_info "echo 'GRUB_TIMEOUT=\"10\"' >> /etc/default/grub"
+    echo 'GRUB_TIMEOUT="10"' >> /etc/default/grub
 
     #--------------------------------------------------
 
@@ -156,14 +159,14 @@ function update_grub() {
             grub2-mkconfig -o /boot/grub2/grub.cfg
 
         elif [[ -x "$(command -v dnf)" ]]; then
-            echo_info 'grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
-            grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+            echo_info 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+            grub2-mkconfig -o /boot/grub2/grub.cfg
         fi
     fi
 }
 
 function main() {
-    splash 'The Matrix awaits you...'
+    splash 'Nobara GRUB Theme Changer'
 
     check_root
     select_theme
